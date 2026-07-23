@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  ranobedb-provider:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ranobedb-metadata-provider
+    ports:
+      - "5000:5000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - FLASK_ENV=production
+    volumes:
+      - ./config.json:/app/config.json:ro
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - metadata-network
+    labels:
+      - "com.ranobedb.provider=metadata"
+      - "com.ranobedb.version=2.0.0"
+
+networks:
+  metadata-network:
+    driver: bridge

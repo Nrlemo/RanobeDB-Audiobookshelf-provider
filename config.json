@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "name": "RanobeDB Light Novels",
+    "description": "Metadata provider for light novels from RanobeDB",
+    "version": "2.0.0"
+  },
+  "settings": {
+    "language_order": {
+      "type": "string",
+      "value": "en,romaji,ja",
+      "description": "Comma-separated language preference order",
+      "options": ["en", "romaji", "ja"],
+      "notes": "Determines the order in which titles, authors, and series names are selected. Example: 'en,romaji,ja' means English first, then Romaji, then Japanese."
+    },
+    "description_language": {
+      "type": "choice",
+      "value": "en",
+      "description": "Preferred language for book descriptions",
+      "options": {
+        "en": "English only",
+        "ja": "Japanese only",
+        "both": "Both (English first, then Japanese)"
+      },
+      "notes": "Choose which language to use for book descriptions and comments."
+    },
+    "max_results": {
+      "type": "number",
+      "value": 10,
+      "min": 1,
+      "max": 25,
+      "description": "Maximum number of search results to return",
+      "notes": "Limits the number of results returned per search query. Higher values = more results but slower."
+    },
+    "enhance_series": {
+      "type": "choice",
+      "value": "basic",
+      "description": "Series metadata enhancement level",
+      "options": {
+        "no": "Disabled (fastest - no series data)",
+        "basic": "Basic (recommended - validates series indices)",
+        "full": "Full (slowest - fetches all series metadata)"
+      },
+      "notes": "Controls how much series information to fetch. 'basic' is recommended for balance between speed and completeness."
+    },
+    "fallback_series_search": {
+      "type": "choice",
+      "value": "yes",
+      "description": "Enable fallback series search",
+      "options": {
+        "yes": "Enabled (recommended - finds all volumes)",
+        "no": "Disabled (pure title search)"
+      },
+      "notes": "If title search fails or returns no results, try searching by series name. Useful for finding all volumes in a series."
+    }
+  },
+  "api": {
+    "base_url": "https://ranobedb.org/api/v0",
+    "website_url": "https://ranobedb.org",
+    "image_base_url": "https://images.ranobedb.org",
+    "rate_limit_delay": 1.0,
+    "rate_limit_notes": "60 requests per minute (1 request per second)"
+  },
+  "server": {
+    "host": "0.0.0.0",
+    "port": 5000,
+    "debug": false,
+    "workers": 4,
+    "notes": "Configuration for running as HTTP server. Adjust workers for production use."
+  },
+  "examples": {
+    "basic": {
+      "description": "Minimal configuration",
+      "config": {
+        "language_order": "en,romaji,ja",
+        "max_results": 10
+      }
+    },
+    "english_only": {
+      "description": "English language only",
+      "config": {
+        "language_order": "en",
+        "description_language": "en",
+        "max_results": 5
+      }
+    },
+    "comprehensive": {
+      "description": "Full series metadata with English preference",
+      "config": {
+        "language_order": "en,romaji,ja",
+        "description_language": "both",
+        "max_results": 15,
+        "enhance_series": "full",
+        "fallback_series_search": "yes"
+      }
+    },
+    "fast": {
+      "description": "Optimized for speed",
+      "config": {
+        "language_order": "en",
+        "description_language": "en",
+        "max_results": 5,
+        "enhance_series": "no",
+        "fallback_series_search": "no"
+      }
+    }
+  }
+}
