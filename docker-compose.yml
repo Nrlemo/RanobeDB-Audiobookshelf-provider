@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   ranobedb-provider:
-    build:
-      context: .
-      dockerfile: Dockerfile
+   image: nrlemo/ranobedb-provider:latest
     container_name: ranobedb-metadata-provider
     ports:
       - "5000:5000"
