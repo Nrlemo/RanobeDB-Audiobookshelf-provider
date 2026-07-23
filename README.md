@@ -1,7 +1,5 @@
-# RanobeDB-Audiobookshelf-provider
 RanobeDB Audiobookshelf custom metadata provider
 =======
-# RanobeDB Metadata Provider para Audiobookshelf
 
 Adaptación del plugin de Calibre para funcionar como proveedor de metadata para Audiobookshelf. Proporciona búsqueda avanzada de light novels desde RanobeDB.
 
@@ -32,6 +30,12 @@ cp ranobedb_audiobookshelf_provider.py /ruta/a/tu/proyecto/
 # Instalar dependencias (opcional)
 pip install requests flask
 ```
+
+Opcion imagen docker disponible en:
+
+docker pull nrlemo/ranobedb-provider:latest
+
+tambien hay un docker compose en el repositorio
 
 ## Uso
 
